@@ -13,7 +13,7 @@ case "$cmd" in
         cat > script.sh <<EOF
 #!/bin/bash
 RICIAN_OPT=`jq -r '.rician' config.json`
-if [ $RICIAN_OPT == "true" ]; then
+if $RICIAN_OPT; then
     RICIAN_OPT="--rician"
 else
     RICIAN_OPT=""
