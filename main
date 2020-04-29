@@ -12,12 +12,18 @@ case "$cmd" in
     dipy_denoise_nlmeans)
         cat > script.sh <<EOF
 #!/bin/bash
+RICIAN_OPT=`jq -r '.rician' config.json`
+if [ $RICIAN_OPT == "true" ]; then
+    RICIAN_OPT="--rician"
+else
+    RICIAN_OPT=""
+fi
 $cmd --force \
     --out_dir $(pwd) \
     --sigma $(jq -r .sigma config.json) \
     --patch_radius $(jq -r .patch_radius config.json) \
     --block_radius $(jq -r .block_radius config.json) \
-    --rician $(jq -r .rician config.json) \
+    $RICIAN_OPT \
     --out_denoised dwi.nii.gz \
     $(jq -r .dwi config.json)
 EOF
