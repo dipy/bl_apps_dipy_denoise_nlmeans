@@ -3,6 +3,50 @@
 
 # Dipy Denoise Diffusion MRI using NLmeans
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Denoises a DWI series with the DIPY 1.1.1 non-local means (dipy_denoise_nlmeans) workflow and outputs the denoised DWI with its bvals and bvecs.**
+
+Wraps the DIPY 1.1.1 command-line workflow dipy_denoise_nlmeans. Use it as an optional early DWI preprocessing step to reduce noise before model fitting. It needs a DWI image with bvals/bvecs; the gradient files are copied unchanged to the output. Note that main always passes --rician, whatever the rician parameter says.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/dwi` |
+| 📤 **Outputs** | `neuro/dwi` |
+| 🐳 **Container** | `brainlife/dipy:1.1.1` |
+| ⚙️ **Resources** | 8 CPUs |
+| 🔗 **Run it** | [doi.org/10.25663/bl.app.72](https://doi.org/10.25663/bl.app.72) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `dwi` | `neuro/dwi` | yes | Diffusion-weighted image (NIfTI) with its bvals and bvecs files. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `output` | `neuro/dwi` | Denoised DWI (dwi.nii.gz) with the original bvals and bvecs. |
+
+<details>
+<summary><b>⚙️ Parameters</b> (4)</summary>
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `sigma` | number | `0` | Sigma parameter to pass to the nlmeans algorithm |
+| `patch_radius` | number | `1` | patch size is ``2 x patch_radius + 1`` |
+| `block_radius` | number | `5` | block size is ``2 x block_radius + 1`` |
+| `rician` | boolean | `true` | If True the noise is estimated as Rician, otherwise Gaussian noise is assumed. |
+
+</details>
+
+📚 **References used by this App:**
+- Garyfallidis E, et al. Dipy, a library for the analysis of diffusion MRI data. Front Neuroinform 8:8 (2014). [doi:10.3389/fninf.2014.00008](https://doi.org/10.3389/fninf.2014.00008)
+- Avesani P, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
+
+<!-- brainlife-app:end -->
+
 The App uses the Non Local Means (NLmeans) method to denoise diffusion-weighted magnetic resonance imaging data.
 
 ### Authors
